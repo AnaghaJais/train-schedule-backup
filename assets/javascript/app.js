@@ -67,8 +67,7 @@ var tMinutesTillTrain;
 //var clock;
 var counter=4;                                                                                                                                                                                                                                                                                                                                                                                                                                                               
 
-//var database = firebase.database();
-//$(".second-page").hide();
+
 $("#add-employee-btn").on("click", function(event) {
   event.preventDefault(); 
 
