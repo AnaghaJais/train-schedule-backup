@@ -67,12 +67,11 @@ var tMinutesTillTrain;
 //var clock;
 var counter=4;                                                                                                                                                                                                                                                                                                                                                                                                                                                               
 
-//var database = firebase.database();
-//$(".second-page").hide();
+
 $("#add-employee-btn").on("click", function(event) {
   event.preventDefault(); 
 
-   //clock = setInterval(times, 60000);
+  
   trainName = $("#train-name-input").val().trim();
   destination = $("#destination-input").val().trim();
   firstTime = $("#train-time-input").val().trim();
@@ -81,10 +80,7 @@ $("#add-employee-btn").on("click", function(event) {
    var time=moment(firstTime, "hh:mm");
 //console.log(time);
    minutesAway(trainName,tFrequency,destination,firstTime);
-    // Time is 3:30 AM
-    //ar firstTime = "03:30";
-
-    // First Time (pushed back 1 year to make sure it comes before current time)
+   
    
    $(".form-control").val("");
   // Creates local "temporary" object for holding employee data
