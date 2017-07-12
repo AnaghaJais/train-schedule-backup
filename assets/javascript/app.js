@@ -8,14 +8,14 @@ var config = {
   };
  
   firebase.initializeApp(config);
-
-var provider = new firebase.auth.GoogleAuthProvider();
+ var database = firebase.database();
+/*var provider = new firebase.auth.GoogleAuthProvider();
 provider.addScope("profile");
 provider.addScope("email");
 var provider1 = new firebase.auth.GithubAuthProvider();
- provider1.addScope('repo');
+ 
  $(".second-page").hide();
- var database = firebase.database();
+
 
 $(".signIn").on("click",function(){
 
@@ -56,7 +56,7 @@ $(".signIn-1").on("click",function(){
  $(".signIn").remove();
  });
 
-});
+});*/
 
 var firstTime;
 var tFrequency;
@@ -100,13 +100,31 @@ database.ref().on("child_added", function(childSnapshot) {
   var trainFrequency = childSnapshot.val().frequency;
   var arrival=childSnapshot.val().nextArrival;
   var minutes=childSnapshot.val().minutesAway1;
-
+new_arrival=moment().add(arrival,"minutes");
+  console.log(new_arrival);
   
   $("#employee-table > tbody").append("<tr class="+key+"><td contenteditable='false' class='item1'>" +  trainame  + "</td><td contenteditable='false'class='item2'>" + traindest + "</td><td contenteditable='false'class='item3'>"
    + trainFrequency +"</td><td contenteditable='false'class='item4'>" + arrival + "</td><td contenteditable='false'class='item5'>" + minutes + "</td>"+"<td><button class='update1' data="+key+">Update</button></td>"+
 "<td><button class='delete' data="+key+">Remove</button></td></tr>");
   //counter=4;
+  
+setInterval(function(){
+  var current_time=moment().format("hh:mm");
+console.log(current_time);
+if(arrival>current_time){
+ minutes--;
+  database.ref(key).update({minutesAway1:minutes});
+}
+else{
+  new_arrival=moment().add(arrival,"minutes");
+  minutes1=moment().diff(new_arrival,"minutes");
+  console.log(new_arrival);
+   database.ref(key).update({nextArrival:new_arrival,minutesAway1:minutes1}); 
+}},30000);
+
+
 });
+
 
 
 function minutesAway(name1,frequency1,destination1,firstTime1){
@@ -197,7 +215,8 @@ console.log(key);
  var destination11 =$(this).closest("tr").find(".item2").text();
 var frequency11 = $(this).closest("tr").find(".item3").text();
 var nextArrival11 =$(this).closest("tr").find(".item4").text();
-var away = $(this).closest("tr").find(".item5").text();
+var away =moment().diff(moment(nextArrival11), "minutes"); 
+console.log(away);
 console.log(destination11);
    console.log(frequency11);
    console.log(nextArrival11);
