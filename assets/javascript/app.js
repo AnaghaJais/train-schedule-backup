@@ -9,7 +9,7 @@ var config = {
  
   firebase.initializeApp(config);
  var database = firebase.database();
-/*var provider = new firebase.auth.GoogleAuthProvider();
+var provider = new firebase.auth.GoogleAuthProvider();
 provider.addScope("profile");
 provider.addScope("email");
 var provider1 = new firebase.auth.GithubAuthProvider();
@@ -56,7 +56,7 @@ $(".signIn-1").on("click",function(){
  $(".signIn").remove();
  });
 
-});*/
+});
 
 var firstTime;
 var tFrequency;
